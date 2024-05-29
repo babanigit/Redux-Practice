@@ -1,10 +1,11 @@
+import { useAppSelector } from "../redux/hook"
 
 
-interface Iprops {
-    count:number;
-}
 
-export const Navbar = ({count}:Iprops) => {
+export const Navbar = () => {
+    const count = useAppSelector((state) => state.counter.value)
+
+
   return (
     <>
     <div>

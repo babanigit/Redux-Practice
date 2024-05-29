@@ -1,38 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+
 import './App.css'
 import { Navbar } from './components/Navbar'
 
+import { useAppDispatch,useAppSelector } from './redux/hook'
+import { decrement, increment, incrementByAmount } from './redux/counter/counterSlice'
+
 function App() {
-  const [count, setCount] = useState(0)
+
+  // The `state` arg is correctly typed as `RootState` already
+  const count = useAppSelector((state) => state.counter.value)
+  const dispatch = useAppDispatch()
+
+  // const [count, setCount] = useState(0)
 
   return (
     <>
     <div>
-      <Navbar count={count} />
+      <Navbar />
 
     </div>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+     
+     <div>
+     <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(incrementByAmount(4))}
+        >
+          increase by num
+        </button>
+     </div>
     </>
   )
 }
